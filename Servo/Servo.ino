@@ -23,7 +23,7 @@ bool calibrated = false;
 Servo myservo;
 Servo myserto;
 
-
+//Leser lys sensorene
 void readLight(){
     overstHoyre = analogRead(topHoy);
     overstVenstre = analogRead(topVen);
@@ -31,6 +31,7 @@ void readLight(){
     nederstVenstre = analogRead(bunVen);
 }
 
+//Bestemmer hvor/ hvor mye servoen skal flytte
 void servomove(){
     //hvis lyset er sterkere over skal den bevege seg opp
     if((nederstVenstre + nederstHoyre >= overstHoyre + overstVenstre)&&(moveY < 180)){
@@ -63,6 +64,7 @@ void setup(){
 void loop(){
     readLight();
     servomove();
+    //Beveger servo
     myservo.write(moveY);
     myserto.write(moveX);
 }
