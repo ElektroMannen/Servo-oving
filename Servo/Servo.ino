@@ -33,19 +33,19 @@ void readLight(){
 
 void servomove(){
     //hvis lyset er sterkere over skal den bevege seg opp
-    if((overstHoyre < nederstHoyre)&&(overstVenstre < nederstVenstre)&&(moveY < 180)){
+    if((nederstVenstre + nederstHoyre > overstHoyre + overstVenstre)&&(moveY < 180)){
         moveY++;
     }
     //hvis lyset er sterkere nederst skal den bevege seg ned
-    if((overstHoyre > nederstHoyre)&&(overstVenstre > nederstVenstre)&&(moveY > 0)){
+    else if((overstHoyre + overstVenstre > nederstVenstre + nederstHoyre)&&(moveY > 0)){
         moveY--;
     }
     //hvis lyset er sterkere på høyre side skal den bevege seg til høyre
-    if((overstHoyre > overstVenstre)&&(nederstHoyre > nederstVenstre)&&(moveX < 180)){
+    else if((overstHoyre > overstVenstre)&&(nederstHoyre > nederstVenstre)&&(moveX < 180)){
         moveX++;
     }
     //hvis lyset er sterkere på venstre side skal den bevege seg til venstre
-    if((overstHoyre < overstVenstre)&&(nederstHoyre < nederstVenstre)&&(moveX > 0)){
+    else if((overstHoyre < overstVenstre)&&(nederstHoyre < nederstVenstre)&&(moveX > 0)){
         moveX--;
     }
 }
