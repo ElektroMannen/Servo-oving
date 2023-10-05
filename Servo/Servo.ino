@@ -2,14 +2,14 @@
 
 int messurePin = A0;
 int servoPin = 9;
-int sertoPin = 10;
+int sertoPin = 11;
 int topHoy = A0;
 int topVen = A1;
 int bunHoy = A2;
 int bunVen = A3;
 
-int moveX;
-int moveY;
+int moveX = 90;
+int moveY = 90;
 
 // Lys sensor variabler er sett bakfra
 int overstVenstre;
@@ -33,20 +33,20 @@ void readLight(){
 
 void servomove(){
     //hvis lyset er sterkere over skal den bevege seg opp
-    if((nederstVenstre + nederstHoyre > overstHoyre + overstVenstre)&&(moveY < 180)){
+    if((nederstVenstre + nederstHoyre >= overstHoyre + overstVenstre)&&(moveY < 180)){
         moveY++;
     }
     //hvis lyset er sterkere nederst skal den bevege seg ned
-    else if((overstHoyre + overstVenstre > nederstVenstre + nederstHoyre)&&(moveY > 0)){
+    else if((overstHoyre + overstVenstre >= nederstVenstre + nederstHoyre)&&(moveY > 0)){
         moveY--;
     }
     //hvis lyset er sterkere på høyre side skal den bevege seg til høyre
-    else if((overstHoyre > overstVenstre)&&(nederstHoyre > nederstVenstre)&&(moveX < 180)){
-        moveX++;
+    else if(((overstHoyre + nederstHoyre <= nederstVenstre + overstVenstre)&&(moveX > 0))){
+        moveX--;
     }
     //hvis lyset er sterkere på venstre side skal den bevege seg til venstre
-    else if((overstHoyre < overstVenstre)&&(nederstHoyre < nederstVenstre)&&(moveX > 0)){
-        moveX--;
+    else if((overstHoyre + nederstHoyre >= nederstVenstre + overstVenstre)&&(moveX < 180)){
+        moveX++;
     }
 }
 void setup(){
@@ -57,12 +57,12 @@ void setup(){
     pinMode(bunVen,INPUT);
     Serial.begin(9600);
     myservo.attach(servoPin);
-    myservo.attach(sertoPin);
+    myserto.attach(sertoPin);
 }
 
 void loop(){
     readLight();
     servomove();
-    myservo.write(moveX);
-    myserto.write(moveY);
+    myservo.write(moveY);
+    myserto.write(moveX);
 }
