@@ -13,9 +13,7 @@ int overstHoyre;
 int nederstVenstre;
 int nederstHoyre;
 
-int minPot = 0;
-int maxLight = 1023;
-int pot;
+
 bool calibrated = false;
 
 Servo myservo;
@@ -23,9 +21,20 @@ Servo myserto;
 
 
 void servomove(){
-    
-    if((overstHoyre < nederstHoyre)&&(overstVenstre < nederstVenstre)){
+    //hvis lyset er sterkere over skal den bevege seg opp
+    if((overstHoyre < nederstHoyre)&&(overstVenstre < nederstVenstre)&&(moveY < 180)){
         moveY++;
+    }
+        //hvis lyset er sterkere nederst skal den bevege seg ned
+    if((overstHoyre > nederstHoyre)&&(overstVenstre > nederstVenstre)&&(moveY>0)){
+        moveY--;
+    }
+        //hvis lyset er sterkere over skal den bevege seg opp
+    if((overstHoyre > overstVenstre)&&(nederstHoyre > nederstVenstre)&&(moveX < 180)){
+        moveX++;
+    }
+    if((overstHoyre < overstVenstre)&&(nederstHoyre < nederstVenstre)&&(moveX > 0)){
+        moveX--;
     }
 }
 void setup(){
